@@ -1,0 +1,4 @@
+::1 - - [09/Jun/2022:07:58:13 +0000] "GET / HTTP/1.1" 200 12 "-" "PostmanRuntime/7.29.0"
+::1 - - [09/Jun/2022:08:34:43 +0000] "GET /test HTTP/1.1" 200 12 "-" "PostmanRuntime/7.29.0"
+::1 - - [09/Jun/2022:08:41:39 +0000] "POST /test/setInvoice HTTP/1.1" 200 10 "-" "PostmanRuntime/7.29.0"
+::1 - - [09/Jun/2022:09:28:44 +0000] "POST /invoices/invoice HTTP/1.1" 200 10 "-" "PostmanRuntime/7.29.0"

@@ -1,3 +1,3 @@
-import ServerInvoice from './src/ServerInvoice.js';
+const invoiceServer = require('./src/Server.js');
 
-const server = new ServerInvoice();
+const newServer = new invoiceServer.Server();

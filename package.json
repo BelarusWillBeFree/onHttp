@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=Development node index.js",
-    "prod": "NODE_ENV=Production node index.js"
+    "dev": "NODE_ENV=development node index.js",
+    "prod": "NODE_ENV=production NODE_NAME_APP=invoice node index.js"
   },
   "keywords": [],
   "author": "Muzyka Anatoly",
   "license": "ISC",
   "dependencies": {
-    "http": "^0.0.1-security",
+    "express": "^4.18.1",
     "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
     "mysql2": "^2.3.3"
   },
   "devDependencies": {
