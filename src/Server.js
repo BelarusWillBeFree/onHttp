@@ -3,6 +3,7 @@ const fs = require('fs');
 const morgan = require('morgan');
 const path = require('path');
 const sql = require('./ConnectorSQL.js');
+const debug = require('./debug.js');
 
 class Server {
   constructor() {
@@ -11,7 +12,7 @@ class Server {
     this.nameApp = process.env.NODE_NAME_APP ?? 'invoices';
     // create a write stream (in append mode)
     const accessLogStream = fs.createWriteStream(path.join(__dirname, '/../logs', 'access.log'), { flags: 'a' });
-    this.moduleLogStream = fs.createWriteStream(path.join(__dirname, '/../logs', 'module.log'), { flags: 'a' });
+
     this.app.use(express.json());
     // setup the logger
     this.app.use(morgan('combined', { stream: accessLogStream }));
@@ -19,8 +20,16 @@ class Server {
     this.start();
   }
 
+  responseProcessing = (err, dataSavedInSQL) => {
+
+  };
+
   setInvoices(request, response) {
-    this.moduleLogStream.write('input data'.concat(JSON.stringify(request.body), '\n'));
+    const connector = new sql.ConnectorSQL();
+    const inputData = request.body;
+    // this.moduleLogStream.write('input data'.concat(JSON.stringify(inputData), '\n'));
+    debug.writeLog('input data', JSON.stringify(inputData));
+    connector.getState({ inputData, responseProcessing: this.responseProcessing });
     response.send('setInvoice');
   }
 
@@ -31,8 +40,6 @@ class Server {
     this.app.post(`/${this.nameApp}/invoice`, (request, response) => this.setInvoices(request, response));
     /* (request, response) => {
       //      res.send('setInvoice');
-      const connector = new sql.ConnectorSQL();
-      const inputData = request.body;
       const responseProcessing = (err, dataSavedInSQL) => {
         const isEqualRow = (row1, row2) => (row1.numInvoice === row2.numInvoice && row2.dateInvoice === row2.dateInvoice);
         const invoiceForUpdate = _.intersectionWith(inputData, dataSavedInSQL, isEqualRow);

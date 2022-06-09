@@ -6,10 +6,11 @@ class ConnectorSQL {
   constructor() {
     const env = process.env.NODE_ENV;
     this.connection = mysql.createConnection(sqlConfig.sqlConnector[env]);
-    const paramsTable = tab.paramTab;
-    this.num = paramsTable[env].fields.num;
-    this.date = paramsTable[env].fields.date;
-    this.state = paramsTable[env].fields.state;
+    const { fields, nameTable } = tab.paramTab[env];
+    this.num = fields.num;
+    this.date = fields.date;
+    this.state = fields.state;
+    this.nameTable = nameTable;
   }
 
   insertInvoice() {
@@ -23,7 +24,7 @@ class ConnectorSQL {
   querySelectWithFilter(filter) {
     try {
       const strFilter = filter.map(({ numInvoice, dateInvoice }) => (`${this.num}="${numInvoice}" AND ${this.date}="${dateInvoice}"`)).join(' or ');
-      const selectQuery = `SELECT ${this.num}, ${this.date} FROM ${paramsTable.nameTable} WHERE ${strFilter};`;
+      const selectQuery = `SELECT ${this.num}, ${this.date} FROM ${this.nameTable} WHERE ${strFilter};`;
       return selectQuery;
     } catch (err) {
       throw new Error();
@@ -38,7 +39,7 @@ class ConnectorSQL {
 
   updateInvoices(invoices, sumResult) {
     if (!invoices.length) return;
-    const queries = invoices.map((invoice) => (` UPDATE ${paramsTable.nameTable} SET ${this.state}='${invoice.state}' WHERE ${this.num}='${invoice.numInvoice}' AND ${this.date}='${invoice.dateInvoice}'`));
+    const queries = invoices.map((invoice) => (` UPDATE ${tab.paramsTable[process.env.NODE_ENV].nameTable} SET ${this.state}='${invoice.state}' WHERE ${this.num}='${invoice.numInvoice}' AND ${this.date}='${invoice.dateInvoice}'`));
     queries.forEach((query) => (
       this.connection.query(query, sumResult)
     ));
@@ -46,7 +47,7 @@ class ConnectorSQL {
 
   appendInvoices(invoices, sumResult) {
     if (!invoices.length) return;
-    const queryInsert = `INSERT INTO ${paramsTable.nameTable} (${this.num}, ${this.date}, ${this.state}) VALUES `;
+    const queryInsert = `INSERT INTO ${tab.paramsTable[process.env.NODE_ENV].nameTable} (${this.num}, ${this.date}, ${this.state}) VALUES `;
     const queryData = invoices.map((invoice) => (`
         ("${invoice.numInvoice}", "${invoice.dateInvoice}", "${invoice.state}")`)).join(',');
     const totalQuery = queryInsert.concat(queryData, ';');
