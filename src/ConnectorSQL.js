@@ -1,6 +1,7 @@
 const mysql = require('mysql2');
 const sqlConfig = require('../config/sqlConnect.js');
 const tab = require('../config/paramsTable.js');
+const debug = require('./debug.js');
 
 class ConnectorSQL {
   constructor() {
@@ -34,6 +35,7 @@ class ConnectorSQL {
   getState(params) {
     const { inputData, responseProcessing } = params;
     const selectQuery = this.querySelectWithFilter(inputData);
+    debug.writeLog('select query', selectQuery);
     this.connection.query(selectQuery, responseProcessing);
   }
 
