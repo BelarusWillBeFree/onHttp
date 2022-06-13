@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const fs = require('fs');
 const morgan = require('morgan');
@@ -20,17 +21,37 @@ class Server {
     this.start();
   }
 
-  responseProcessing = (err, dataSavedInSQL) => {
-
-  };
-
   setInvoices(request, response) {
     const connector = new sql.ConnectorSQL();
     const inputData = request.body;
     // this.moduleLogStream.write('input data'.concat(JSON.stringify(inputData), '\n'));
-    debug.writeLog('input data', JSON.stringify(inputData));
-    connector.getState({ inputData, responseProcessing: this.responseProcessing });
-    response.send('setInvoice');
+    const responseProcessing = (err, dataSavedInSQL) => {
+      const isEqualRow = (row1, row2) => (row1.numInvoice === row2.numInvoice && row2.dateInvoice === row2.dateInvoice);
+      const invoicesForUpdate = _.intersectionWith(inputData, dataSavedInSQL, isEqualRow);
+      const invoicesForAppend = inputData.reduce((prev, curr) => {
+        const countFindRow = invoicesForUpdate
+          ? invoicesForUpdate.filter(
+            (obj) => obj.numInvoice === curr.numInvoice && obj.dateInvoice === curr.dateInvoice,
+          ).length : 0;
+        if (countFindRow === 0) prev.push(curr);
+        return prev;
+      }, []);
+      // const responseObj = [];
+      const sumResult = (err, result) => {
+      // responseObj.push({err, result});
+        console.log(err, result);
+      };
+      debug.writeLog('invoicesForUpdate', JSON.stringify(invoicesForUpdate));
+      debug.writeLog('invoicesForAppend', JSON.stringify(invoicesForAppend));
+      //connector.updateInvoices(invoicesForUpdate, sumResult);
+      //connector.appendInvoices(invoicesForAppend, sumResult);
+      // console.log('Update',invoiceForUpdate);
+      // console.log('Insert',invoiceForAppend);
+      response.send('done');// JSON.stringify(responseObj)
+      connector.connectEnd();
+    };
+    connector.getState({ inputData, responseProcessing });
+    //response.send('setInvoice');
   }
 
   services() {

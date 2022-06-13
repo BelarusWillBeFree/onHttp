@@ -4,3 +4,8 @@ undefined: undefined
 undefined: undefined
 undefined: undefined
 input data: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
+input data: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
+response from mySql: [{"numInvoice":12950,"dateInvoice":"2021-12-19T21:00:00.000Z"},{"numInvoice":12951,"dateInvoice":"2021-12-19T21:00:00.000Z"}]
+input data: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
+invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
+invoicesForAppend: []
