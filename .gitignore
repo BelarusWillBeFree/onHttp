@@ -3,4 +3,4 @@
 .eslintignore
 .vscode
 /test/
-logs/
+/logs/

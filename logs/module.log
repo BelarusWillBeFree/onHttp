@@ -1,11 +1,5 @@
-undefined: undefined
-undefined: undefined
-undefined: undefined
-undefined: undefined
-undefined: undefined
-input data: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
-input data: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
-response from mySql: [{"numInvoice":12950,"dateInvoice":"2021-12-19T21:00:00.000Z"},{"numInvoice":12951,"dateInvoice":"2021-12-19T21:00:00.000Z"}]
-input data: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
+select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12951" AND dateInvoice="2021-12-20";
+inputData: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
+dataSavedInSQL: [{"numInvoice":12950,"dateInvoice":"2021-12-19T21:00:00.000Z"},{"numInvoice":12951,"dateInvoice":"2021-12-19T21:00:00.000Z"}]
 invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
 invoicesForAppend: []
