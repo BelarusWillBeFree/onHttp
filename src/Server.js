@@ -28,8 +28,8 @@ class Server {
     const responseProcessing = (err, dataSavedInSQL) => {
       debug.writeLog('run responseProcessing', '');
       const isEqualRow = (row1, row2) => (row1.numInvoice === row2.numInvoice && row2.dateInvoice === row2.dateInvoice);
-      debug.writeLog('inputData', JSON.stringify(inputData));
-      debug.writeLog('dataSavedInSQL', JSON.stringify(dataSavedInSQL));
+      //      debug.writeLog('inputData', JSON.stringify(inputData));
+      //      debug.writeLog('dataSavedInSQL', JSON.stringify(dataSavedInSQL));
       const invoicesForUpdate = _.intersectionWith(inputData, dataSavedInSQL, isEqualRow);
       const invoicesForAppend = inputData.reduce((prev, curr) => {
         const countFindRow = invoicesForUpdate
@@ -39,15 +39,15 @@ class Server {
         if (countFindRow === 0) prev.push(curr);
         return prev;
       }, []);
-      // const responseObj = [];
+      const responseObj = [];
       const sumResult = (err, result) => {
-      // responseObj.push({err, result});
+        responseObj.push({ err, result });
         console.log(err, result);
       };
-      //debug.writeLog('invoicesForUpdate', JSON.stringify(invoicesForUpdate));
-      //debug.writeLog('invoicesForAppend', JSON.stringify(invoicesForAppend));
-      // connector.updateInvoices(invoicesForUpdate, sumResult);
-      // connector.appendInvoices(invoicesForAppend, sumResult);
+      debug.writeLog('invoicesForUpdate', JSON.stringify(invoicesForUpdate));
+      debug.writeLog('invoicesForAppend', JSON.stringify(invoicesForAppend));
+      connector.updateInvoices(invoicesForUpdate, sumResult);
+      connector.appendInvoices(invoicesForAppend, sumResult);
       // console.log('Update',invoiceForUpdate);
       // console.log('Insert',invoiceForAppend);
       response.send('done');// JSON.stringify(responseObj)

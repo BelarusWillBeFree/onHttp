@@ -1,2 +1,25 @@
-2022-6-13 12:26:40: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12951" AND dateInvoice="2021-12-20";
-2022-6-13 12:26:40: run responseProcessing: 
+2022-6-13 14:24:7: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12951" AND dateInvoice="2021-12-20";
+2022-6-13 14:24:7: run responseProcessing: 
+2022-6-13 14:24:7: invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"},{"numInvoice":12951,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:24:7: invoicesForAppend: []
+2022-6-13 14:24:25: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12959" AND dateInvoice="2021-12-20";
+2022-6-13 14:24:25: run responseProcessing: 
+2022-6-13 14:24:25: invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:24:25: invoicesForAppend: [{"numInvoice":12959,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:24:46: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12959" AND dateInvoice="2021-12-20";
+2022-6-13 14:24:46: run responseProcessing: 
+2022-6-13 14:24:46: invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:24:46: invoicesForAppend: [{"numInvoice":12959,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:25:36: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12959" AND dateInvoice="2021-12-20";
+2022-6-13 14:25:36: run responseProcessing: 
+2022-6-13 14:25:36: invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:25:36: invoicesForAppend: [{"numInvoice":12959,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:29:25: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12959" AND dateInvoice="2021-12-20";
+2022-6-13 14:31:15: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12959" AND dateInvoice="2021-12-20";
+2022-6-13 14:31:15: run responseProcessing: 
+2022-6-13 14:31:15: invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:31:15: invoicesForAppend: [{"numInvoice":12959,"dateInvoice":"2021-12-20","state":"not ready"}]
+2022-6-13 14:31:57: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="12950" AND dateInvoice="2021-12-20" or numInvoice="12959" AND dateInvoice="2021-12-20";
+2022-6-13 14:31:57: run responseProcessing: 
+2022-6-13 14:31:57: invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"ready"},{"numInvoice":12959,"dateInvoice":"2021-12-20","state":"ready"}]
+2022-6-13 14:31:57: invoicesForAppend: []
