@@ -27,7 +27,7 @@ class ConnectorSQL {
   getState(params) {
     const { inputData, responseProcessing } = params;
     const selectQuery = this.querySelectWithFilter(inputData);
-    debug.writeLog('select query', selectQuery);
+//    debug.writeLog('select query', selectQuery);
     this.connection.query(selectQuery, responseProcessing);
   }
 
@@ -45,7 +45,7 @@ class ConnectorSQL {
     const queryData = invoices.map((invoice) => (`
         ("${invoice.numInvoice}", "${invoice.dateInvoice}", "${invoice.state}")`)).join(',');
     const totalQuery = queryInsert.concat(queryData, ';');
-    console.log(totalQuery);
+//    console.log(totalQuery);
     this.connection.query(totalQuery, sumResult);
   }
 
