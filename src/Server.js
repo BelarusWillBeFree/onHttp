@@ -26,6 +26,7 @@ class Server {
     const inputData = request.body;
     // this.moduleLogStream.write('input data'.concat(JSON.stringify(inputData), '\n'));
     const responseProcessing = (err, dataSavedInSQL) => {
+      debug.writeLog('run responseProcessing', JSON.stringify(inputData));
       const isEqualRow = (row1, row2) => (row1.numInvoice === row2.numInvoice && row2.dateInvoice === row2.dateInvoice);
       debug.writeLog('inputData', JSON.stringify(inputData));
       debug.writeLog('dataSavedInSQL', JSON.stringify(dataSavedInSQL));
