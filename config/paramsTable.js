@@ -2,8 +2,8 @@ const paramTab = {
   production: {
     nameTable: 'score',
     fields: {
-      num: 'nom',
-      date: 'data',
+      num: 'numInvoice',
+      date: 'dateInvoice',
       state: 'state',
     },
   },
