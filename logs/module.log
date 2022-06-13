@@ -23,3 +23,43 @@
 2022-6-13 14:31:57: run responseProcessing: 
 2022-6-13 14:31:57: invoicesForUpdate: [{"numInvoice":12950,"dateInvoice":"2021-12-20","state":"ready"},{"numInvoice":12959,"dateInvoice":"2021-12-20","state":"ready"}]
 2022-6-13 14:31:57: invoicesForAppend: []
+2022-6-13 14:43:38: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 14:43:38: run responseProcessing: 
+2022-6-13 14:43:38: invoicesForUpdate: []
+2022-6-13 14:43:38: invoicesForAppend: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"not ready wwww"},{"numInvoice":1,"dateInvoice":"2023-12-31","state":"ready ya ya ya"}]
+2022-6-13 14:44:13: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 14:44:13: run responseProcessing: 
+2022-6-13 14:44:13: invoicesForUpdate: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"two"}]
+2022-6-13 14:44:13: invoicesForAppend: [{"numInvoice":1,"dateInvoice":"2023-12-31","state":"two"}]
+2022-6-13 14:46:38: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 14:46:38: run responseProcessing: 
+2022-6-13 14:58:1: invoicesForUpdate: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"two"}]
+2022-6-13 14:58:1: invoicesForAppend: [{"numInvoice":1,"dateInvoice":"2023-12-31","state":"two"}]
+2022-6-13 14:58:22: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 14:58:22: run responseProcessing: 
+2022-6-13 15:3:4: invoicesForUpdate: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"two"}]
+2022-6-13 15:3:4: invoicesForAppend: [{"numInvoice":1,"dateInvoice":"2023-12-31","state":"two"}]
+2022-6-13 15:3:13: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 15:3:13: run responseProcessing: 
+2022-6-13 15:3:48: invoicesForUpdate: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"two"}]
+2022-6-13 15:3:48: invoicesForAppend: [{"numInvoice":1,"dateInvoice":"2023-12-31","state":"two"}]
+2022-6-13 15:6:0: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 15:6:1: run responseProcessing: 
+2022-6-13 15:7:3: invoicesForUpdate: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"two"}]
+2022-6-13 15:7:3: invoicesForAppend: [{"numInvoice":1,"dateInvoice":"2023-12-31","state":"two"}]
+2022-6-13 15:7:26: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 15:7:26: run responseProcessing: 
+2022-6-13 15:8:18: invoicesForUpdate: []
+2022-6-13 15:8:18: invoicesForAppend: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"two"},{"numInvoice":1,"dateInvoice":"2023-12-31","state":"two"}]
+2022-6-13 15:8:37: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 15:8:37: run responseProcessing: 
+2022-6-13 15:18:34: invoicesForUpdate: []
+2022-6-13 15:18:34: invoicesForAppend: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"two"},{"numInvoice":1,"dateInvoice":"2023-12-31","state":"two"}]
+2022-6-13 15:19:10: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 15:19:10: run responseProcessing: 
+2022-6-13 15:19:10: invoicesForUpdate: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"two"},{"numInvoice":1,"dateInvoice":"2023-12-31","state":"two"}]
+2022-6-13 15:19:10: invoicesForAppend: []
+2022-6-13 15:20:3: select query: SELECT numInvoice, dateInvoice FROM Invoice WHERE numInvoice="1" AND dateInvoice="2018-12-31" or numInvoice="1" AND dateInvoice="2023-12-31";
+2022-6-13 15:20:3: run responseProcessing: 
+2022-6-13 15:20:3: invoicesForUpdate: [{"numInvoice":1,"dateInvoice":"2018-12-31","state":"three"},{"numInvoice":1,"dateInvoice":"2023-12-31","state":"three"}]
+2022-6-13 15:20:3: invoicesForAppend: []
