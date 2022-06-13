@@ -46,22 +46,26 @@ class Server {
       };
       debug.writeLog('invoicesForUpdate', JSON.stringify(invoicesForUpdate));
       debug.writeLog('invoicesForAppend', JSON.stringify(invoicesForAppend));
-      //connector.updateInvoices(invoicesForUpdate, sumResult);
-      //connector.appendInvoices(invoicesForAppend, sumResult);
+      // connector.updateInvoices(invoicesForUpdate, sumResult);
+      // connector.appendInvoices(invoicesForAppend, sumResult);
       // console.log('Update',invoiceForUpdate);
       // console.log('Insert',invoiceForAppend);
       response.send('done');// JSON.stringify(responseObj)
       connector.connectEnd();
     };
     connector.getState({ inputData, responseProcessing });
-    //response.send('setInvoice');
+    // response.send('setInvoice');
   }
 
   services() {
-    this.app.get(`/${this.nameApp}`, (req, res) => {
-      res.send('Service for work with CSM invoices');
-    });
-    this.app.post(`/${this.nameApp}/invoice`, (request, response) => this.setInvoices(request, response));
+    try {
+      this.app.get(`/${this.nameApp}`, (req, res) => {
+        res.send('Service for work with CSM invoices');
+      });
+      this.app.post(`/${this.nameApp}/invoice`, (request, response) => this.setInvoices(request, response));
+    } catch (err) {
+      debug.writeLog('err:', err);
+    }
     /* (request, response) => {
       //      res.send('setInvoice');
       const responseProcessing = (err, dataSavedInSQL) => {
