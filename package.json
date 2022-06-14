@@ -16,7 +16,8 @@
     "express": "^4.18.1",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "axios": "^0.27.2",

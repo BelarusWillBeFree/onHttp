@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const path = require('path');
 const sql = require('./ConnectorSQL.js');
 const debug = require('./debug.js');
+const validate = require('./Validator.js');
 
 class Server {
   constructor() {
@@ -21,35 +22,46 @@ class Server {
     this.start();
   }
 
-  setInvoices(request, response) {
+  responseProcessing(dataSavedInSQL, inputData) {
+    const isEqualRow = (row1, row2) => (
+      row1.numInvoice === row2.numInvoice
+      && Date.parse(`${row1.dateInvoice}T00:00:00`) === Date.parse(row2.dateInvoice)
+    );
+    const invoicesForUpdate = _.intersectionWith(inputData, dataSavedInSQL, isEqualRow);
+    const invoicesForAppend = inputData.reduce((prev, curr) => {
+      const countFindRow = invoicesForUpdate
+        ? invoicesForUpdate.filter(
+          (obj) => obj.numInvoice === curr.numInvoice && obj.dateInvoice === curr.dateInvoice,
+        ).length : 0;
+      if (countFindRow === 0) prev.push(curr);
+      return prev;
+    }, []);
+    return { invoicesForUpdate, invoicesForAppend };
+  }
+
+  async setInvoices(request, response) {
     const connector = new sql.ConnectorSQL();
+    await connector.initConnection();
     const inputData = request.body;
-    const responseProcessing = (err, dataSavedInSQL) => {
-      const isEqualRow = (row1, row2) => (
-        row1.numInvoice === row2.numInvoice
-        && Date.parse(`${row1.dateInvoice}T00:00:00`) === Date.parse(row2.dateInvoice)
-      );
-      const invoicesForUpdate = _.intersectionWith(inputData, dataSavedInSQL, isEqualRow);
-      const invoicesForAppend = inputData.reduce((prev, curr) => {
-        const countFindRow = invoicesForUpdate
-          ? invoicesForUpdate.filter(
-            (obj) => obj.numInvoice === curr.numInvoice && obj.dateInvoice === curr.dateInvoice,
-          ).length : 0;
-        if (countFindRow === 0) prev.push(curr);
-        return prev;
-      }, []);
-      const responseObj = [];
-      const sumResult = (err, result) => {
-        responseObj.push({ err, result });
-        if (err) debug.writeLog('error ', err);
-        // console.log(err, result);
-      };
-      connector.updateInvoices(invoicesForUpdate, sumResult);
-      connector.appendInvoices(invoicesForAppend, sumResult);
-      response.send('done');// JSON.stringify(responseObj)
+    const validator = new validate.Validator();
+    if (!validator.validate(inputData)) {
       connector.connectEnd();
-    };
-    connector.getState({ inputData, responseProcessing });
+      response.send('error validation');
+      return;
+    }
+    const dataSavedInSQL = await connector.getState(inputData);
+    const { invoicesForUpdate, invoicesForAppend } = this.responseProcessing(dataSavedInSQL, inputData);
+
+ /*   const responseObj = [];
+    const sumResult = (err, result) => {
+      responseObj.push({ err, result });
+      if (err) debug.writeLog('error ', err);
+      // console.log(err, result);
+    };*/
+    await connector.updateInvoices(invoicesForUpdate);
+    await connector.appendInvoices(invoicesForAppend);
+    response.send('done');// JSON.stringify(responseObj)
+    connector.connectEnd();
   }
 
   services() {
