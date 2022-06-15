@@ -22,10 +22,10 @@ class Server {
     this.start();
   }
 
-  responseProcessing(dataSavedInSQL, inputData) {
+  getUpdateAppendLists(dataSavedInSQL, inputData) {
     const isEqualRow = (row1, row2) => (
       row1.numInvoice === row2.numInvoice
-      && Date.parse(`${row1.dateInvoice}T00:00:00`) === Date.parse(row2.dateInvoice)
+      && new Date(`${row1.dateInvoice}T00:00:00`).getYear() === new Date(row2.dateInvoice).getYear()
     );
     const invUpdate = _.intersectionWith(inputData, dataSavedInSQL, isEqualRow);
     const invAppend = inputData.reduce((prev, curr) => {
@@ -51,7 +51,7 @@ class Server {
       return;
     }
     const dataSavedInSQL = await connector.getState(inputData);
-    const { invUpdate, invAppend } = this.responseProcessing(dataSavedInSQL, inputData);
+    const { invUpdate, invAppend } = this.getUpdateAppendLists(dataSavedInSQL, inputData);
     await connector.updateInvoices(invUpdate);
     await connector.appendInvoices(invAppend);
     response.send('done');

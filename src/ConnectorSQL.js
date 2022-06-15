@@ -37,7 +37,7 @@ class ConnectorSQL {
 
   updateInvoices(invoices) {
     if (!invoices.length) return;
-    const queries = invoices.map((invoice) => (` UPDATE ${this.nameTable} SET ${this.state}='${invoice.state}' WHERE ${this.num}='${invoice.numInvoice}' AND ${this.date}='${invoice.dateInvoice}'`));
+    const queries = invoices.map((invoice) => (` UPDATE ${this.nameTable} SET ${this.state}='${invoice.state}' WHERE ${this.num}='${invoice.numInvoice}' AND YEAR(${this.date})=YEAR('${invoice.dateInvoice}')`));
     const queryPromises = queries.map((query) => {
       try {
         return this.connection.execute(query);
