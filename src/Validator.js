@@ -1,9 +1,11 @@
-const { array, object, string } = require('yup');
+const {
+  array, object, string, number,
+} = require('yup');
 
 class Validator {
   constructor() {
     this.schema = array().of(object({
-      numInvoice: string().required(),
+      numInvoice: number().required(),
       dateInvoice: string().required(),
       state: string().required(),
     }));

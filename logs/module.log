@@ -1,0 +1,4 @@
+2022-6-15 8:40:5: input data:: [object Object],[object Object]
+2022-6-15 8:42:31: input data:: [{"numInvoice":"4748","dateInvoice":"2022-05-20","state":"ready"},{"numInvoice":"4749","dateInvoice":"2022-05-20","state":"ready"}]
+2022-6-15 8:43:27: input data:: [{"numInvoice":"4748","dateInvoice":"2022-05-20","state":"ready"},{"numInvoice":"4749","dateInvoice":"2022-05-20","state":"ready"}]
+2022-6-15 8:47:31: input data:: [{"numInvoice":4748,"dateInvoice":"2022-05-20","state":"ready"},{"numInvoice":4749,"dateInvoice":"2022-05-20","state":"ready"}]

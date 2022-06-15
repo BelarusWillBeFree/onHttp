@@ -1,8 +1,8 @@
-//const mysql = require('mysql2');
+// const mysql = require('mysql2');
 const mysql = require('mysql2/promise');
 const sqlConfig = require('../config/sqlConnect.js');
 const tab = require('../config/paramsTable.js');
-//const debug = require('./debug.js');
+// const debug = require('./debug.js');
 
 class ConnectorSQL {
   constructor() {
@@ -16,7 +16,6 @@ class ConnectorSQL {
 
   async initConnection() {
     const env = process.env.NODE_ENV;
-    //this.connection = mysql.createConnection(sqlConfig.sqlConnector[env]);
     this.connection = await mysql.createConnection(sqlConfig.sqlConnector[env]);
   }
 
@@ -31,10 +30,7 @@ class ConnectorSQL {
   }
 
   async getState(inputData) {
-  //  const { inputData, responseProcessing } = params;
     const selectQuery = this.querySelectWithFilter(inputData);
-//    debug.writeLog('select query', selectQuery);
-    //this.connection.query(selectQuery, responseProcessing);
     const [rows] = await this.connection.execute(selectQuery);
     return rows;
   }
@@ -48,11 +44,8 @@ class ConnectorSQL {
       } catch (e) {
         return null;
       }
-  });
-  Promise.all(queryPromises).then((data)=> console.log(data)
-  ).catch((err)=>(console.log(err)));
-  //return rows;
-    //Promise.all(queryPromises);
+    });
+    Promise.all(queryPromises).then((data) => console.log(data)).catch((err) => (console.log(err)));
   }
 
   async appendInvoices(invoices) {
@@ -61,7 +54,6 @@ class ConnectorSQL {
     const queryData = invoices.map((invoice) => (`
         ("${invoice.numInvoice}", "${invoice.dateInvoice}", "${invoice.state}")`)).join(',');
     const totalQuery = queryInsert.concat(queryData, ';');
-//    console.log(totalQuery);
     await this.connection.execute(totalQuery);
   }
 

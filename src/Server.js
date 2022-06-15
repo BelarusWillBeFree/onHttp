@@ -27,22 +27,23 @@ class Server {
       row1.numInvoice === row2.numInvoice
       && Date.parse(`${row1.dateInvoice}T00:00:00`) === Date.parse(row2.dateInvoice)
     );
-    const invoicesForUpdate = _.intersectionWith(inputData, dataSavedInSQL, isEqualRow);
-    const invoicesForAppend = inputData.reduce((prev, curr) => {
-      const countFindRow = invoicesForUpdate
-        ? invoicesForUpdate.filter(
+    const invUpdate = _.intersectionWith(inputData, dataSavedInSQL, isEqualRow);
+    const invAppend = inputData.reduce((prev, curr) => {
+      const countFindRow = invUpdate
+        ? invUpdate.filter(
           (obj) => obj.numInvoice === curr.numInvoice && obj.dateInvoice === curr.dateInvoice,
         ).length : 0;
       if (countFindRow === 0) prev.push(curr);
       return prev;
     }, []);
-    return { invoicesForUpdate, invoicesForAppend };
+    return { invUpdate, invAppend };
   }
 
   async setInvoices(request, response) {
     const connector = new sql.ConnectorSQL();
     await connector.initConnection();
     const inputData = request.body;
+    debug.writeLog('input data:', JSON.stringify(inputData));
     const validator = new validate.Validator();
     if (!validator.validate(inputData)) {
       connector.connectEnd();
@@ -50,17 +51,10 @@ class Server {
       return;
     }
     const dataSavedInSQL = await connector.getState(inputData);
-    const { invoicesForUpdate, invoicesForAppend } = this.responseProcessing(dataSavedInSQL, inputData);
-
- /*   const responseObj = [];
-    const sumResult = (err, result) => {
-      responseObj.push({ err, result });
-      if (err) debug.writeLog('error ', err);
-      // console.log(err, result);
-    };*/
-    await connector.updateInvoices(invoicesForUpdate);
-    await connector.appendInvoices(invoicesForAppend);
-    response.send('done');// JSON.stringify(responseObj)
+    const { invUpdate, invAppend } = this.responseProcessing(dataSavedInSQL, inputData);
+    await connector.updateInvoices(invUpdate);
+    await connector.appendInvoices(invAppend);
+    response.send('done');
     connector.connectEnd();
   }
 
